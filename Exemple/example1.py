@@ -1,24 +1,29 @@
+
+
 def afficher_grille(grille):
+
+    """
+        affichage de la grille de jeu
+    """
+
     print("     0)  1)  2)")
     print("   -------------")
-    print("0)", end='')
-    for i in range(3):
-        print(" | "+str(grille[i]), end='')
-    print(" |")
-    print("   -------------")
-    print("1)", end='')
-    for i in range(3):
-        print(" | "+str(grille[i+3]), end='')
-    print(" |")
-    print("   -------------")
-    print("2)", end='')
-    for i in range(3):
-        print(" | "+str(grille[i+6]), end='')
-    print(" |")
-    print("   -------------")
+
+    for i in range (3):
+
+        print(i,")", end='')
+        for j in range(3):
+           print(" | "+str(grille[j]), end='')
+        print(" |")
+        print("   -------------")
 
 
 def tour(grille, joueur):
+
+    """
+        déroulement du tour de @joueur pour la partie @grille
+    """
+
     print("C'est le tour du joueur "+str(joueur))
     colonne=input("Entrez le numero de la colonne : ")
     ligne=input("Entrez le numero de la ligne : ")
@@ -37,6 +42,11 @@ def tour(grille, joueur):
     afficher_grille(grille)
 
 def est_gagnant(grille):
+
+    """
+        détection de gain de la partie @grille
+    """
+
     if (grille[0]==grille[1]) and (grille[0]==grille[2]) and (grille[0]!=" "):
         return 1
     if (grille[3]==grille[4]) and (grille[3]==grille[5]) and (grille[3]!=" "):
@@ -56,6 +66,11 @@ def est_gagnant(grille):
 
 
 def est_match_nul(grille):
+
+    """
+        détection de match nul de la partie @grille
+    """
+
     for i in range(9):
         if grille[i]==" ":
             return 0
