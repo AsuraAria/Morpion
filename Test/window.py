@@ -6,8 +6,7 @@
 # Class Definition
 # ====================================================
 
-class player:
-
+class window:
     """
             Method class definition : used to make main object
     """
@@ -15,40 +14,24 @@ class player:
 # ====================================================
 # Constructors
 # ====================================================
-
     def __init__(self):
         """
                 Constructor of the method class
         """
-        self.name = ""
-        self.icon = ""
-        self.active = False
+        self.exe = games.games()
+
 
 # ====================================================
 # Setters & Getters
 # ====================================================
 
-    def setName(self, newname):
-        self.name = newname
-
-    def getName(self):
-        return self.name
-
-    def setIcon(self, newicon):
-        self.icon = newicon
-
-    def getIcon(self):
-        return self.icon
-
-    def setActive(self, Bool):
-        self.active = Bool
-
-    def getActive(self):
-        return self.active
-
 # ====================================================
 # Functions
 # ====================================================
+
+    def run(self):
+        window = "as"
+        self.exe.cases = 0
 
 # ====================================================
 # End

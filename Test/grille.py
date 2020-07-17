@@ -59,32 +59,6 @@ class grille:
             for j in i:
                 j.clear()
 
-    def win(self):
-        """
-                Detect end of game by win
-        """
-        for i in range(3):
-            if (self.cases[i][0].getContent() == self.cases[i][1].getContent()) and (self.cases[i][1].getContent() == self.cases[i][2].getContent()) and (self.cases[i][0].getContent() != ""):
-                return 1
-            if (self.cases[0][i].getContent() == self.cases[1][i].getContent()) and (self.cases[1][i].getContent() == self.cases[2][i].getContent()) and (self.cases[0][i].getContent() != ""):
-                return 1
-        if (self.cases[0][0].getContent() == self.cases[1][1].getContent()) and (self.cases[1][1].getContent() == self.cases[2][2].getContent()) and (self.cases[1][1].getContent() != ""):
-            return 1
-        if (self.cases[0][2].getContent() == self.cases[1][1].getContent()) and (self.cases[1][1].getContent() == self.cases[2][0].getContent()) and (self.cases[1][1].getContent() != ""):
-            return 1
-        return 0
-
-    def draw(self):
-        """
-                Detect end of game by draw
-        """
-
-        for i in range(3):
-            for j in range(3):
-                if (self.cases[i][j].getContent() != ""):
-                    return 0
-        return 1
-
 # ====================================================
 # End
 # ====================================================
