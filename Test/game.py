@@ -81,20 +81,19 @@ class game:
         pygame.display.flip()
 
 
-    def restart(self, window):
+    def restart(self, window,run):
         """
                 Start a new game
         """
-        rerun = True
         window.fill((225, 225, 225))
         pygame.display.flip()
-        while(rerun):
+        while(True):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    rerun = False
-                if (event.type == pygame.MOUSEBUTTONDOWN):
-                    rerun = False
-        self.initPlay(window)
+                    return False
+                if (event.type == pygame.MOUSEBUTTONDOWN):                    
+                    self.initPlay(window)
+                    return True
 
 
     def pos_to_case(self,pos):
@@ -136,10 +135,10 @@ class game:
         draw = self.draw()
         if (win or draw):
             if (win):
-                if (self.playerA.active):
-                    print(self.PlayerA.name, " won!")
+                if (self.playerA.getActive()):
+                    print(self.playerA.getName(), " won!")
                 else:
-                    print(self.PlayerB.name, " won!")
+                    print(self.playerB.getName(), " won!")
             else:
                 print("It's a draw")
             print("End of game")
@@ -170,6 +169,8 @@ class game:
         for i in range(3):
             for j in range(3):
                 if (self.grille.cases[i][j].getContent() != ""):
+                    print("FLAG",i,j,self.grille.cases[i][j].getContent())
+                else:
                     return 0
         return 1
 
@@ -180,7 +181,7 @@ class game:
     def gameExe(self, window):
 
         self.initPlay(window)
-        activePlayer, waitingPlayer = self.playerA.getName(),self.playerB.getName()
+        activePlayer, waitingPlayer = self.playerA,self.playerB
         run = True
 
         while run:
@@ -193,6 +194,7 @@ class game:
                     run = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    print(activePlayer.getName(), waitingPlayer.getName())
                     """
                             Mouse input
                     """
@@ -211,8 +213,16 @@ class game:
                             currentCase.setContent(activePlayer.getIcon())
                             self.fillcase(currentCase, caseNumbers, window)
                             if (self.gameEnd()):
-                                self.restart(window)
-                            activePlayer, waitingPlayer = waitingPlayer, activePlayer
+                                run=self.restart(window,run)
+                            else:
+                                if(self.playerA.getActive()):
+                                    self.playerA.setActive(False)
+                                    self.playerB.setActive(True)
+                                else:
+                                    self.playerB.setActive(False)
+                                    self.playerA.setActive(True)                                    
+                                activePlayer, waitingPlayer = waitingPlayer, activePlayer
+                                
                         else:
                             """
                                     Case already occupied
@@ -223,7 +233,7 @@ class game:
                         """
                                 Left button input
                         """
-                        self.restart(window)
+                        run=self.restart(window,run)
         pygame.quit()
 
 # ====================================================
