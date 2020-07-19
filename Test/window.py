@@ -2,23 +2,44 @@
 # Import
 # ====================================================
 
+#======================
+# Vendors
+import pygame
+
+#======================
+# Own
+import game
+import grille
+
 # ====================================================
 # Class Definition
 # ====================================================
+
 
 class window:
     """
             Method class definition : used to make main object
     """
-
 # ====================================================
 # Constructors
 # ====================================================
-    def __init__(self):
+
+    def __init__(self, x, y):
         """
                 Constructor of the method class
         """
-        self.exe = games.games()
+        self.x = x
+        self.y = y
+        self.surface = pygame.display.set_mode((x, y))
+        self.game = game.game()
+
+    def setSize(self, x, y):
+        self.x = x
+        self.y = y
+        self.surface = pygame.display.set_mode((x, y))
+
+    def getSize(self):
+        return (self.x, self.y)
 
 
 # ====================================================
@@ -30,8 +51,9 @@ class window:
 # ====================================================
 
     def run(self):
-        window = "as"
-        self.exe.cases = 0
+        pygame.init()
+        pygame.display.set_caption('Fluffy Morpion')
+        self.game.gameExe(self.surface)
 
 # ====================================================
 # End

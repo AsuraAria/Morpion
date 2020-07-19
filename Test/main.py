@@ -1,27 +1,31 @@
+
 # ====================================================
 # Import
 # ====================================================
 
-import pygame
-import game 
-import grille
+#======================
+# Vendors
+import sys
 
-#    exe.gameExe(window)
+#======================
+# Own
+import window
 
 # ====================================================
 # Functions
 # ====================================================
 
+
+def start(x, y):
+    exe = window.window(x, y)
+    exe.run()
+
 # ====================================================
-# Execution
+# Entry Point
 # ====================================================
 
-pygame.init()
-pygame.display.set_caption('Fluffy Morpion')
-window = pygame.display.set_mode((800, 800))
-exe = game.game()
-exe.gameExe(window)
-
+if __name__ == "__main__":
+    start(int(sys.argv[1]), int(sys.argv[2]))
 
 # ====================================================
 # End
