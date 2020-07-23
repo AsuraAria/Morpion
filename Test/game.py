@@ -80,7 +80,7 @@ class game:
         self.playerA.setIcon(icon00)
         self.playerA.setActive(True)
         self.playerB.setName("PlayerB")
-        self.playerB.setIcon(icon01)
+        self.playerB.setIcon(icon04)
         self.playerB.setActive(False)
 
         self.clock.tick(60)
@@ -93,6 +93,8 @@ class game:
         pygame.display.flip()
 
     def restart(self, window, run):
+
+        #To keep to restart match with same settings#
         """
                 Start a new game
         """
@@ -139,18 +141,18 @@ class game:
         """
                 Detect end of game
         """
+        GE = 0
         win = self.win()
         draw = self.draw()
         if (win or draw):
             if (win):
                 if (self.playerA.getActive()):
-                    print(self.playerA.getName(), " won!")
+                    GE = 1
                 else:
-                    print(self.playerB.getName(), " won!")
+                    GE = 2
             else:
-                print("It's a draw")
-            print("End of game")
-            return 1
+                GE = 3
+            return GE
 
     def win(self):
         """
@@ -189,6 +191,7 @@ class game:
         self.initPlay(window)
         activePlayer, waitingPlayer = self.playerA, self.playerB
         run = True
+        res = [False,""]
 
         while run:
             for event in pygame.event.get():
@@ -208,8 +211,7 @@ class game:
                                 Right button input
                         """
                         caseNumbers = self.pos_to_case(pygame.mouse.get_pos())
-                        currentCase = self.grille.cases[caseNumbers[0]
-                                                        ][caseNumbers[1]]
+                        currentCase = self.grille.cases[caseNumbers[0]][caseNumbers[1]]
 
                         if (currentCase.getContent() == ""):
                             """
@@ -217,8 +219,16 @@ class game:
                             """
                             currentCase.setContent(activePlayer.getIcon())
                             self.fillcase(currentCase, caseNumbers, window)
-                            if (self.gameEnd()):
-                                run = self.restart(window, run)
+                            state = self.gameEnd() 
+                            if (state):
+                                run = False
+                                if (state == 1) :
+                                    res = [True, self.playerA.getName()]
+                                elif (state == 2) :
+                                    res = [True, self.playerB.getName()]
+                                else :
+                                    res[1] = False
+
                             else:
                                 if(self.playerA.getActive()):
                                     self.playerA.setActive(False)
@@ -238,9 +248,8 @@ class game:
                         """
                                 Left button input
                         """
-                        run = self.restart(window, run)
-        pygame.quit()
-
+                        run = False
+        return res
 # ====================================================
 # End
 # ====================================================
